@@ -1,0 +1,12 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Making a battleship program using TDD",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "watch":"jest --watch player.test.js"
+  },
+  "author": "Chappo",
+  "license": "ISC"
+}
