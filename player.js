@@ -30,7 +30,7 @@ class Player {
     }
   }
 
-  shootPointPlayer(oppenentBoard, point) {
+  shootPointPlayer(oppenentBoard, point, playerTwo) {
     if (this.canShoot && this.isPlayer) {
       //shoot Pos is set to the chosen point.
       while (true) {
@@ -42,6 +42,7 @@ class Player {
           return "Fail";
         } else {
           this.canShoot = false;
+          playerTwo.canShoot = true;
           return point;
         }
       }

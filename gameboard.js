@@ -20,8 +20,10 @@ class Gameboard {
     receiveAttack(position)  {
         position.forEach(element => {
             if (this.shipPositions.includes(element)) {
+                console.log("Ship hit!");
                 this.hitPositions.push(element);
             } else {
+                console.log("Ship missed!");
                 this.missedPositions.push(element);
             }
         });

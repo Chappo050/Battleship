@@ -29,7 +29,8 @@ test("player can shoot empty space", () => {
     '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95',
     '96', '97', '98', '99'
   ];
-  expect(player.shootPointPlayer(mockBoard, point)).toEqual('11');
+  const playerTwo = emptyPlayer(false, false);
+  expect(player.shootPointPlayer(mockBoard, point, playerTwo)).toEqual('11');
 });
 
 test("player cant shoot already shot space", () => {
@@ -38,7 +39,8 @@ test("player cant shoot already shot space", () => {
   const mockBoard = makeEmptyBoard();
   mockBoard.hitPositions = ['01', '02', '23', '04'];
   mockBoard.missedPositions = ['11', '12', '13', '14'];
-  expect(player.shootPointPlayer(mockBoard, point)).toEqual("Fail")
+  const playerTwo = emptyPlayer(false, false);
+  expect(player.shootPointPlayer(mockBoard, point, playerTwo)).toEqual("Fail")
 });
 
 test("AI can shoot empty space (should be 11)", () => {
@@ -59,15 +61,18 @@ test("AI can shoot empty space (should be 11)", () => {
     '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95',
     '96', '97', '98', '99'
   ];
-  const point = player.shootPointAI(mockBoard);
+  const playerTwo = emptyPlayer(true, false);
+  const point = player.shootPointAI(mockBoard, playerTwo);
+
   expect(point).toEqual('11');
 });
 
 
 test("AI cant shoot when not its turn", () => {
   const player = emptyPlayer(false, false);
+  const playerTwo = emptyPlayer(true, false);
   const mockBoard = makeEmptyBoard();
-  expect(player.shootPointAI(mockBoard)).toEqual("Fail")
+  expect(player.shootPointAI(mockBoard, playerTwo)).toEqual("Fail")
 });
 
 /* full array
