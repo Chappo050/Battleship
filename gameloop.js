@@ -1,8 +1,8 @@
-const Player = require("./player");
-const Gameboard = require("./gameboard");
-const Battleship = require("./battleship");
+import { Player } from "./player.js";
+import { Gameboard } from "./gameboard.js";
+import { Battleship } from "./battleship.js";
 
-class Game {
+export class Game {
   constructor(playerOneBoard, playerTwoBoard, playerOne, playerTwo) {
     this.playerOneBoard = playerOneBoard;
     this.playerTwoBoard = playerTwoBoard;
@@ -29,31 +29,31 @@ class Game {
 
   startGameLoop() {
     //Start new game
-    while (true) {
       const playerShot = window.prompt('Type an "XY" position to shoot:');
       //player one shoots
-      this.playerOne.shootPointPlayer(
+      const shot = this.playerOne.shootPointPlayer(
         this.playerTwoBoard,
         playerShot,
         this.playerTwo
       );
-
+      this.playerTwoBoard.receiveAttack(shot);
       //check to see if player 1 won
       if (this.playerTwoBoard.getAllSunk() === true) {
         console.log("Game over. Player 1 wins!");
-        break;
       }
-
+      this.playerOne.canShoot = true;
       //player two shoots (AI)
-      this.playerShot.shootPointAI(this.playerOneBoard, playerOne);
+      const shotTwo = this.playerTwo.shootPointAI(
+        this.playerOneBoard,
+        this.playerOne
+      );
 
+
+      this.playerTwoBoard.receiveAttack(shotTwo);
       //check to see if player 2 won
       if (this.playerOneBoard.getAllSunk() === true) {
         console.log("Game over. Player 2 wins!");
-        break;
       }
     }
   }
-}
-
-module.exports = Game;
+    

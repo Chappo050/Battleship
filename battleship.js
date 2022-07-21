@@ -1,4 +1,4 @@
-class Battleship {
+ export class Battleship {
     constructor(length, hitArray, sunk) {
         this.length = length;
         this.hitArray = hitArray;
@@ -20,8 +20,3 @@ class Battleship {
         return this.hitArray;
     }
 }
-
-
-module.exports = Battleship;
-
-

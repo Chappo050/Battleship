@@ -1,11 +1,10 @@
-const Battleship = require('./battleship');
 
-class Gameboard {
+export class Gameboard {
     constructor(shootPos, hitPositions, missedPositions, shipPositions) {
         this.shootPos = shootPos;
         this.hitPositions  = hitPositions;
         this.missedPositions = missedPositions;
-        this.shipPositions = shipPositions
+        this.shipPositions = shipPositions;
     }
 
   
@@ -18,15 +17,13 @@ class Gameboard {
     }
 
     receiveAttack(position)  {
-        position.forEach(element => {
-            if (this.shipPositions.includes(element)) {
+            if (this.shipPositions.includes(position)) {
                 console.log("Ship hit!");
-                this.hitPositions.push(element);
+                this.hitPositions.push(position);
             } else {
                 console.log("Ship missed!");
-                this.missedPositions.push(element);
-            }
-        });
+                this.missedPositions.push(position);
+            };
       }
     
     getPlacedShips() {
@@ -51,8 +48,4 @@ class Gameboard {
             return false;
         }
     }
-
-
 }
-
-module.exports = Gameboard;

@@ -1,5 +1,8 @@
+
+
 const Player = require("./player");
 const Gameboard = require("./gameboard");
+
 
 function emptyPlayer(isPlayer, canShoot) {
   const player = new Player(isPlayer, canShoot);

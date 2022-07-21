@@ -1,5 +1,9 @@
-const Game = require("./gameloop");
+import { Game } from "./gameloop.js";
 
 const game = new Game();
 game.newGame();
-game.startGameLoop();
+for (let turns = 0; turns < 50; turns++) {
+    game.startGameLoop();
+}
+
+

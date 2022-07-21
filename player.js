@@ -1,10 +1,10 @@
-class Player {
+export class Player {
   constructor(isPlayer, canShoot) {
     this.isPlayer = isPlayer;
     this.canShoot = canShoot;
   }
 
-  shootPointAI(oppenentBoard) {
+  shootPointAI(oppenentBoard, playerTwo) {
     if (this.canShoot && !this.isPlayer) {
       //shoot Pos is set to the chosen point.
       while (true) {
@@ -18,14 +18,16 @@ class Player {
           oppenentBoard.hitPositions.includes(pointXY) ||
           oppenentBoard.missedPositions.includes(pointXY)
         ) {
-            console.log('retrying');
-          continue;
+          console.log("retrying");
         } else {
           this.canShoot = false;
+          playerTwo.canShoot = true;
+          console.log("AI Shoots " + pointXY);
           return pointXY;
         }
       }
     } else {
+      console.error("AI tried to shoot while it couldnts");
       return "Fail";
     }
   }
@@ -39,10 +41,12 @@ class Player {
           oppenentBoard.hitPositions.includes(point) ||
           oppenentBoard.missedPositions.includes(point)
         ) {
-          return "Fail";
+          console.log("Can not shoot there, please choose another spot");
+          //return 'Fail'; for test
         } else {
           this.canShoot = false;
           playerTwo.canShoot = true;
+          console.log("Can shoot there " + point);
           return point;
         }
       }
@@ -64,7 +68,4 @@ class Player {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-
 }
-
-module.exports = Player;
