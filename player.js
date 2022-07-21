@@ -1,60 +1,69 @@
-
-
 class Player {
-    constructor(isPlayer, canShoot) {
-        this.isPlayer = isPlayer;
-        this.canShoot = canShoot;
-    }
+  constructor(isPlayer, canShoot) {
+    this.isPlayer = isPlayer;
+    this.canShoot = canShoot;
+  }
 
-    shoot() {
-        this.canShoot = false;
-    }
-
-    AIChoosePoint() {
-        if (this.canShoot) {
-            //gets to point and combine them together for a single point
-            const pointX = this.getRandomPoint(0, 9);
-            const pointY = this.getRandomPoint(0, 9);
-    
-            const pointXY = pointX.toString() + pointY.toString();
-            this.shoot();
-            return pointXY
-        } else{
-            console.error("Not your turn to shoot");
+  shootPointAI(oppenentBoard) {
+    if (this.canShoot && !this.isPlayer) {
+      //shoot Pos is set to the chosen point.
+      while (true) {
+        //If its an AI it goes into the loop of choosing a random number.
+        //gets to point and combine them together for a single point.
+        const pointX = this.getRandomPoint(0, 9).toString();
+        const pointY = this.getRandomPoint(0, 9).toString();
+        let pointXY = pointX + pointY;
+        //checks for conflics (already shot places).
+        if (
+          oppenentBoard.hitPositions.includes(pointXY) ||
+          oppenentBoard.missedPositions.includes(pointXY)
+        ) {
+            console.log('retrying');
+          continue;
+        } else {
+          this.canShoot = false;
+          return pointXY;
         }
-
+      }
+    } else {
+      return "Fail";
     }
+  }
 
-    getCanShoot() {
-        return this.canShoot;
+  shootPointPlayer(oppenentBoard, point) {
+    if (this.canShoot && this.isPlayer) {
+      //shoot Pos is set to the chosen point.
+      while (true) {
+        //checks for conflics (already shot places).
+        if (
+          oppenentBoard.hitPositions.includes(point) ||
+          oppenentBoard.missedPositions.includes(point)
+        ) {
+          return "Fail";
+        } else {
+          this.canShoot = false;
+          return point;
+        }
+      }
+    } else {
+      console.error("Player tried to shoot while it wasnt its turn!");
     }
+  }
 
-    setCanShoot() {
-        this.canShoot = true;
-    }
+  getCanShoot() {
+    return this.canShoot;
+  }
 
-    getRandomPoint(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+  setCanShoot() {
+    this.canShoot = true;
+  }
+
+  getRandomPoint(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
 }
-
-
-/*
-
-let attackPoint = 0;
-while (true) {
-  const point = Number(player.AIShoot());
-
-  if (board.shipPositions.includes(point) && board.missedPositions(point)) {
-      continue;
-  } else {
-      board.receiveAttack(point);
-      attackPoint = point;
-      break;
-}
-}
-*/
 
 module.exports = Player;
