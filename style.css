@@ -2,3 +2,21 @@ input {
     font-size: 20pt;
     text-align:center;
 }
+
+table {
+    border: 2px solid black;
+    table-layout: fixed;
+    width: 400px;
+    height: 400px;
+    font-size: 20pt;
+    text-align:center;
+}
+
+th,
+td {
+  border: 1px solid black;
+  width: 20px;
+  overflow: hidden;
+  font-size: 20pt;
+  text-align:center;
+}

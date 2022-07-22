@@ -1,5 +1,6 @@
 import { Game } from "./gameloop.js";
 import { Player } from "./player.js";
+import { clickableGrid } from "./DOMsetup.js";
 
 const game = new Game();
 game.newGameRandom();
@@ -18,7 +19,6 @@ textBox.addEventListener("input", function(e){
     }
   })
 
-
 //Enter co-ord and shoot events
 shootBtn.addEventListener("click", () => {game.startGameLoop()});
 
@@ -27,6 +27,11 @@ window.addEventListener("keydown", (e) => {
     game.startGameLoop();
   } 
 })
+let grid = clickableGrid(9,9,function(i){
+    console.log("You clicked on item #:",i);
+});
+
+document.body.appendChild(grid);
 
 
 
