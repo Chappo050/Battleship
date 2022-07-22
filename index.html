@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-<title>Battleships</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-</style>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    </head>
+  <meta charset="UTF-8" />
+  <title>Battleships</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style></style>
 
-<body>
-
-<div class="">
- <h1>Battleships</h1>
-</div>
-
-</div>
-
-</body>
-<script type="module" src="index.js" defer></script>
+  <body>
+    <div class="">
+      <h1>Battleships</h1>
+      <div>
+        <label for="posText">Enter Coords:</label>
+        <input type="text" pattern="[1-9]*" id="posText" name="posText"  size="1" maxlength="2"/><br /><br />
+        <button id="shootBtn">SHOOT!</button>
+      </div>
+    </div>
+  </body>
+  <script type="module" src="index.js" defer></script>
 </html>

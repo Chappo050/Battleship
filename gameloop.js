@@ -10,50 +10,118 @@ export class Game {
     this.playerTwo = playerTwo;
   }
 
-  newGame() {
+  newGameRandom() {
     this.playerOne = new Player(true, true);
     this.playerTwo = new Player(false, false);
-    this.playerOneBoard = new Gameboard(
-      [],
-      [],
-      [],
-      ["01", "02", "03", "04", "05", "06", "07", "08", "09"]
-    );
-    this.playerTwoBoard = new Gameboard(
-      [],
-      [],
-      [],
-      ["11", "12", "13", "14", "15", "16", "17", "18", "19"]
-    );
-  }
 
+    const carrierOne = new Battleship(5);
+    const battleshipOne = new Battleship(4);
+    const cruiserOne = new Battleship(3);
+    const submarineOne = new Battleship(3);
+    const destroyerOne = new Battleship(2);
+
+    const playerOneShips = [
+      carrierOne,
+      battleshipOne,
+      cruiserOne,
+      submarineOne,
+      destroyerOne,
+    ];
+
+    const carrierTwo = new Battleship(5);
+    const battleshipTwo = new Battleship(4);
+    const cruiserTwo = new Battleship(3);
+    const submarineTwo = new Battleship(3);
+    const destroyerTwo = new Battleship(2);
+
+    const playerTwoShips = [
+      carrierTwo,
+      battleshipTwo,
+      cruiserTwo,
+      submarineTwo,
+      destroyerTwo,
+    ];
+
+    this.playerOneBoard = new Gameboard([], [], [], []);
+
+    //add ship locations for all ships
+    playerOneShips.forEach((element) => {
+      let locArray;
+      while (true) {
+        locArray = this.playerOneBoard.getRandomPoints(element);
+        if (locArray.includes("fail")) {
+          continue;
+        }
+        break;
+      }
+
+      locArray.forEach((element) => {
+        this.playerOneBoard.shipPositions.push(element);
+      });
+    });
+
+    this.playerTwoBoard = new Gameboard([], [], [], []);
+
+    //add ship locations for all ships, retires if overlap is found.
+    playerTwoShips.forEach((element) => {
+      let locArray;
+      while (true) {
+        locArray = this.playerTwoBoard.getRandomPoints(element);
+        if (locArray.includes("fail")) {
+          continue;
+        }
+        break;
+      }
+
+      locArray.forEach((element) => {
+        this.playerTwoBoard.shipPositions.push(element);
+      });
+    });
+    this.playerOneBoard.shipPositions.sort();
+    this.playerTwoBoard.shipPositions.sort();
+    console.log(this.playerOneBoard.shipPositions);
+    console.log(this.playerTwoBoard.shipPositions);
+  }
   startGameLoop() {
     //Start new game
-      const playerShot = window.prompt('Type an "XY" position to shoot:');
-      //player one shoots
-      const shot = this.playerOne.shootPointPlayer(
-        this.playerTwoBoard,
-        playerShot,
-        this.playerTwo
-      );
-      this.playerTwoBoard.receiveAttack(shot);
-      //check to see if player 1 won
-      if (this.playerTwoBoard.getAllSunk() === true) {
-        console.log("Game over. Player 1 wins!");
-      }
-      this.playerOne.canShoot = true;
-      //player two shoots (AI)
-      const shotTwo = this.playerTwo.shootPointAI(
-        this.playerOneBoard,
-        this.playerOne
-      );
+    //get values
 
+    const inputText = document.getElementById("posText");
+    const playerShot = inputText.value.toString();
 
-      this.playerTwoBoard.receiveAttack(shotTwo);
-      //check to see if player 2 won
-      if (this.playerOneBoard.getAllSunk() === true) {
-        console.log("Game over. Player 2 wins!");
-      }
+    inputText.value = "";
+
+    //player one shoots
+    const shot = this.playerOne.shootPointPlayer(
+      this.playerTwoBoard,
+      playerShot,
+      this.playerTwo
+    );
+
+    if (shot == false) {
+      alert("You have already shot there! Please choose another location!");
+      return;
     }
+    this.playerTwoBoard.receiveAttack(shot);
+
+    //check to see if player 1 won
+    if (this.playerTwoBoard.getAllSunk() === true) {
+      console.log("Game over. Player 1 wins!");
+      return;
+    }
+
+    //player two shoots (AI)
+    const shotTwo = this.playerTwo.shootPointAI(
+      this.playerOneBoard,
+      this.playerOne
+    );
+
+    this.playerOneBoard.receiveAttack(shotTwo);
+    //check to see if player 2 won
+    if (this.playerOneBoard.getAllSunk() === true) {
+      console.log("Game over. Player 2 wins!");
+      return;
+    }
+    console.log(this.playerTwoBoard.hitPositions);
   }
-    
+}
