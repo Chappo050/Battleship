@@ -27,7 +27,7 @@ window.addEventListener("keydown", (e) => {
     game.startGameLoop();
   } 
 })
-let grid = clickableGrid(9,9,function(i){
+let grid = clickableGrid(10,10,function(i){
     console.log("You clicked on item #:",i);
 });
 

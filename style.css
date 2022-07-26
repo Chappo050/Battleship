@@ -15,8 +15,8 @@ table {
 th,
 td {
   border: 1px solid black;
-  width: 20px;
+  width: 30px;
   overflow: hidden;
-  font-size: 20pt;
+  font-size: 15pt;
   text-align:center;
 }

@@ -20,9 +20,11 @@ export class Gameboard {
             if (this.shipPositions.includes(position)) {
                 console.log("Ship hit!");
                 this.hitPositions.push(position);
+                return true;
             } else {
                 console.log("Ship missed!");
                 this.missedPositions.push(position);
+                return false;
             };
       }
 
@@ -31,7 +33,7 @@ export class Gameboard {
     while (true) {
         
   
-    const min = 1;
+    const min = 0;
     const max = 9;
 
     const startPosX = Math.floor(Math.random() * (max - min + 1)) + min;

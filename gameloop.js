@@ -1,6 +1,7 @@
 import { Player } from "./player.js";
 import { Gameboard } from "./gameboard.js";
 import { Battleship } from "./battleship.js";
+import { updateCell, gameOverScreen} from "./DOMsetup.js";
 
 export class Game {
   constructor(playerOneBoard, playerTwoBoard, playerOne, playerTwo) {
@@ -98,14 +99,18 @@ export class Game {
       this.playerTwo
     );
 
-    if (shot == false) {
+    if (shot === false) {
       alert("You have already shot there! Please choose another location!");
       return;
     }
-    this.playerTwoBoard.receiveAttack(shot);
+    const hitMiss = this.playerTwoBoard.receiveAttack(shot);
+    updateCell(shot, hitMiss);
+
+
 
     //check to see if player 1 won
     if (this.playerTwoBoard.getAllSunk() === true) {
+      gameOverScreen(true);
       console.log("Game over. Player 1 wins!");
       return;
     }
@@ -119,6 +124,7 @@ export class Game {
     this.playerOneBoard.receiveAttack(shotTwo);
     //check to see if player 2 won
     if (this.playerOneBoard.getAllSunk() === true) {
+      gameOverScreen(false);
       console.log("Game over. Player 2 wins!");
       return;
     }

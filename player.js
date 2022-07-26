@@ -10,8 +10,8 @@ export class Player {
       while (true) {
         //If its an AI it goes into the loop of choosing a random number.
         //gets to point and combine them together for a single point.
-        const pointX = this.getRandomPoint(1, 9).toString();
-        const pointY = this.getRandomPoint(1, 9).toString();
+        const pointX = this.getRandomPoint(0, 9).toString();
+        const pointY = this.getRandomPoint(0, 9).toString();
         let pointXY = pointX + pointY;
         //checks for conflics (already shot places).
         if (
